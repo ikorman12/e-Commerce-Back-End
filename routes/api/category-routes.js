@@ -6,8 +6,9 @@ class Category extends Product {}
 
 router.get('/', async (req, res) => {
   try{
-    const catData = await Category.findAll();
-    returnres.json(catData);
+    const catData = await Category.findAll({ include:[{model: Product}]
+    });
+    return res.json(catData);
   }catch(err){
     res.status(404).json(err);
   }
@@ -18,7 +19,9 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   // find one category by its `id` value
   try {
-    const catData = await Category.findByPk(req.params.id);
+    const catData = await Category.findByPk(req.params.id,{
+      include:[{model:Product}]
+    });
     if (!userData) {
       res.status(404).json({ message: 'No category with this id!' });
       return;
@@ -64,7 +67,7 @@ router.delete('/:id', async (req, res) => {
     try{
     const catData= await Category.delete(req.body, {
       where: {
-        id:req.params.id,
+        id:req.body.id,
       },
       individualHooks:true
     });
