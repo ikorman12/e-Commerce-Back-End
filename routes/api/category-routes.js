@@ -65,8 +65,8 @@ router.delete('/:id', async (req, res) => {
     const catData= await Category.delete(req.body, {
       where: {
         id:req.params.id,
-      }, 
-      individualHooks:true;
+      },
+      individualHooks:true
     });
     if (!catData[0]){
       res.status(404).json({msg: `Error ${catData} doesnt match anything in the database please try again`});
