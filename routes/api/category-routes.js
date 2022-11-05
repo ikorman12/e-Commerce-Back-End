@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { Category, Product } = require('../../models');
 
 // The `/api/categories` endpoint
-class Category extends Product {}
+
 
 router.get('/', async (req, res) => {
   try{
@@ -22,7 +22,7 @@ router.get('/:id', async (req, res) => {
     const catData = await Category.findByPk(req.params.id,{
       include:[{model:Product}]
     });
-    if (!userData) {
+    if (!catData) {
       res.status(404).json({ message: 'No category with this id!' });
       return;
     }
@@ -48,15 +48,10 @@ router.post('/', async (req, res) => {
     try {
       const catData = await Category.update(req.body, {
         where: {
-          id: req.params.id,
-        },
-        individualHooks: true
+          id: req.params.id
+        }
       });
-      if (!catData[0]) {
-        res.status(404).json({ message: 'No category with this id!' });
-        return;
-      }
-      res.status(200).json(userData);
+      res.status(200).json({message: `${catData} updated`});
     } catch (err) {
       res.status(500).json(err);
     }
@@ -65,14 +60,14 @@ router.post('/', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   // delete a category by its `id` value
     try{
-    const catData= await Category.delete(req.body, {
+    const catData= await Category.destroy({
       where: {
-        id:req.body.id,
+        id: req.params.id,
       },
-      individualHooks:true
     });
-    if (!catData[0]){
-      res.status(404).json({msg: `Error ${catData} doesnt match anything in the database please try again`});
+
+    if (!catData) {
+      res.status(404).json({ message: 'No product found with that id!' });
       return;
     }
       res.status(200).json(catData);
@@ -83,4 +78,4 @@ router.delete('/:id', async (req, res) => {
 
 
 
-module.exports = Category;
+module.exports = router;
