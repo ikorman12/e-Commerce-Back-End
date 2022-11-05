@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { Category, Product } = require('../../models');
 
 // The `/api/categories` endpoint
+class Category extends Product {}
 
 router.get('/', async (req, res) => {
   try{
@@ -39,7 +40,6 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.put('/:id', (req, res) => {
   // update a category by its `id` value
   router.put('/:id', async (req, res) => {
     try {
@@ -59,8 +59,25 @@ router.put('/:id', (req, res) => {
     }
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
   // delete a category by its `id` value
+    try{
+    const catData= await Category.delete(req.body, {
+      where: {
+        id:req.params.id,
+      }, 
+      individualHooks:true;
+    });
+    if (!catData[0]){
+      res.status(404).json({msg: `Error ${catData} doesnt match anything in the database please try again`});
+      return;
+    }
+      res.status(200).json(catData);
+  } catch(err){
+    res.status(500).json(err);
+  }
 });
 
-module.exports = router;
+
+
+module.exports = Category;
