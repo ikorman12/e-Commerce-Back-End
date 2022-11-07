@@ -104,8 +104,23 @@ router.put('/:id', (req, res) => {
     });
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
   // delete one product by its `id` value
+  try{
+    const productData= await Product.destroy({
+      where: {
+        id:req.body.id,
+      },
+      individualHooks:true
+    });
+    if (!productData){
+      res.status(404).json({msg: `Error ${productData} doesnt match anything in the database please try again`});
+      return;
+    }
+      res.status(200).json({message: `${productData} successfully deleted from database`});
+  } catch(err){
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;

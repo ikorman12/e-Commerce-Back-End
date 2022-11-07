@@ -12,26 +12,28 @@
 *[Contact](#contact)
 
 ## Introduction
-This application was created to ease the addition, deletion and editing of products, pricing and other variables for an online shopping network.
+This application is meant to make adding, editing and deleting commerce for a company. This application helps organize and stack objects where they belong with ease.
 
 ## Technologies Used
 Javascript
-CSS
-HTML5
+nodemon
+Inquirer
+Express
+Sequelize
 
 ## Usage
-This app is for those busy people who need their days planned accordingly. Sometimes using a calendar app is too confusing and having a listed todo list.
+In order to use this app, follow the deployment links below and initiate the command `npm run watch` to seed the information and get the correct data. Follow the steps the deployed video takes to look through the possible routes and chnages one can make to the database.
 
 
 ## Deployment
--[Github](https://github.com/ikorman12/work-day-scheduler)
--[Live-deployment](https://ikorman12.github.io/work-day-scheduler/)
+-[Github](https://github.com/ikorman12/e-Commerce-Back-End)
+-[Live-deployment](https://drive.google.com/file/d/1QkeSMzsTiHPfgys-zAZ8tqVVm3mjIM57/view)
 
 ## Screenshots
-![image description](link to picture in diretory)
+![npm-run-watch](./images/Screen%20Shot%202022-11-06%20at%209.54.18%20PM.png)
 
 ## Future
-Future implementations of this app would be to incorporate other features such as reminders on the todo events so the user will never forget what needs to be done.
+Future implementations of this app would be to incorporate features on the front end which can work with this back end application and can help edit, add and delete commerce.
 
 ## Credits
 Igor Korman
